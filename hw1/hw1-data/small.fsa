@@ -1,0 +1,63 @@
+1
+
+(0 (A A))
+(A (AA A))
+(AA (AAA A))
+(AA (AAB B))
+(AA (AAC C))
+(AA (AAK K))
+(AA (AAL L))
+(AA (AAM M))
+(AA (AAN N))
+(AA (AAR R))
+
+(AAB (AABE E))
+(AABE (AABER R))
+(AABER (AABERG G))
+
+(AAC (AACH H))
+(AACH (AACHE E))
+(AACHE (AACHEN N))
+
+(AAK (AAKE E))
+(AAKE (AAKER R))
+
+(AAL (AALS S))
+(AALS (AALST T))
+(AALST (AALSTE E))
+(AALSTE (AALSTEH H))
+
+(AAM (AAMO O))
+(AAMO (AAMOD D))
+(AAMOD (AAMODT T))
+
+(AAN (AANC C))
+(AANC (AANCO O))
+(AANCO (AANCOR R))
+
+(AAR (AARD D))
+(AARD (AARDE E))
+(AARDE (AARDEM M))
+(AARDEM (AARDEMA A))
+
+(AARD (AARDV V))
+(AARDV (AARDVA A))
+(AARDVA (AARDVAR R))
+(AARDVAR (AARDVARK K))
+
+(A (1 *e*))
+(AAA (1 *e*))
+(AABERG (1 *e*))
+(AACHEN (1 *e*))
+(AAKER (1 *e*))
+(AALSTEH (1 *e*))
+(AAMODT (1 *e*))
+(AANCOR (1 *e*))
+(AARDEMA (1 *e*))
+(AARDVARK (1 *e*))
+
+
+
+
+
+(1 (0 _))
