@@ -1,0 +1,15 @@
+from collections import defaultdict
+
+def train_char_lm(fname, order=4):
+    data = file(fname).read()
+    lm = defaultdict(Counter)
+    pad = "~" * order
+    data = pad + data
+    for i in xrange(len(data)-order):
+        history, char = data[i:i+order], data[i+order]
+        lm[history][char]+=1
+    def normalize(counter):
+        s = float(sum(counter.values()))
+        return [(c,cnt/s) for c,cnt in counter.iteritems()]
+    outlm = {hist:normalize(chars) for hist, chars in lm.iteritems()}
+    return outlm
