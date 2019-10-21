@@ -24,5 +24,5 @@ for i in range(0, len(l), 3):
             epron[l[i][j]] += 1
 for k in sorted(dic):
     p = dic[k] / epron[k[0]]
-    if(p > 0.05):
+    if(p > 0.01 and k[1].count(' ') < 2):
         print(k[0] + " : " + k[1] + " # " + str(p))
