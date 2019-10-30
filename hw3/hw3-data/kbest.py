@@ -3,7 +3,7 @@ import sys
 
 
 
-def viterbi(observe, states, start_probs, tran_probs, emit_probs):
+def viterbi(observe, states, start_probs, tran_probs, emit_probs, k):
     v = [{}, {}]
     #print(start_probs)
     #print(states)
@@ -44,33 +44,39 @@ def viterbi(observe, states, start_probs, tran_probs, emit_probs):
         #print(prev_st)
         v[-1][prev_st]['prob'] *= tran_probs[prev_st][(prev_st[1], '</s>')]
 
-    opt = []
+
     # The highest probability
-    max_prob = max(value["prob"] for value in v[-1].values())
-    previous = None
+    #max_prob = max(value["prob"] for value in v[-1].values())
+    kbest = list(sorted(value["prob"] for value in v[-1].values()))
+    #print(test)
 
      # Get most probable state and its backtrack
-    for st, data in v[-1].items():
-        if data["prob"] == max_prob:
-            opt.append(st[1])
-            previous = st
-            break
+    for i in range(k):
+        opt = []
+        previous = None
+        prob = kbest.pop()
+        for st, data in v[-1].items():
+            if data["prob"] == prob:
+                opt.append(st[1])
+                previous = st
+                break
 
-    for t in range(len(v) - 2, -1, -1):
-        opt.insert(0, v[t + 1][previous]["prev"][1])
-        previous = v[t + 1][previous]["prev"]
-    print(' '.join(opt), max_prob)
-    #print(' '.join(opt), max_prob)
+        for t in range(len(v) - 2, -1, -1):
+            opt.insert(0, v[t + 1][previous]["prev"][1])
+            previous = v[t + 1][previous]["prev"]
+        print(' '.join(opt), prob)
+
 
 
 emit_probs = {}
 tran_probs = {}
 start_probs = {('<s>', '<s>') : 1.0}
 states = []
+#observe = ('P', 'I', 'A', 'N', 'O', '</s>')
 observe = ('P', 'I', 'A', 'N', 'O')
-#observe = ('N', 'A', 'I', 'T', 'O')
 #tran_probs
-for line in open(sys.argv[1]):
+k = int(sys.argv[1])
+for line in open(sys.argv[2]):
     l = line.split()
     if((l[0],l[1]) not in tran_probs):
         tran_probs[(l[0], l[1])] = {(l[1],l[3]) : float(l[5])}
@@ -80,7 +86,7 @@ for line in open(sys.argv[1]):
 
 states = tuple(set(states))
 #emit_probs
-for line in open(sys.argv[2]):
+for line in open(sys.argv[3]):
     l = line.split()
     if(l[0] not in emit_probs):
         if (l[3] == '#'):
@@ -98,4 +104,5 @@ for line in open(sys.argv[2]):
             emit_probs[l[0]][l[2] + " " + l[3] + " " + l[4]] = float(l[6])
 #print(start_probs)
 #print(emit_probs)
-viterbi(observe, states, start_probs ,tran_probs, emit_probs)
+
+viterbi(observe, states, start_probs ,tran_probs, emit_probs, k)

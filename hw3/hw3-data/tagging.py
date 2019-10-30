@@ -3,8 +3,6 @@ from sys import stdin
 
 
 
-
-
 states = ('pro', 'n', 'aux', 'det','v', 'prep','conj', 'f')
 start_probs = { 'pro': 0.25, 'n': 0.25, 'aux': 0.25, 'det': 0.25}
 tran_probs = {'pro': {'v': 0.25, 'conj': 0.25, 'aux': 0.25, 'f': 0.25},
@@ -70,18 +68,26 @@ def viterbi(observe, states, start_probs, tran_probs, emit_probs):
                 #print(st, max_probs)
         #print("----------")
             #print(st, prev, max_probs)
-    for dic in v:
-        lixicon = ''
-        max_p = -1
-        for key in dic:
-            if dic[key]['prob'] > max_p:
-                max_p = dic[key]['prob']
-                lixicon = key
-        print(lixicon)
+    opt = []
+    # The highest probability
+    max_prob = max(value["prob"] for value in v[-1].values())
+    previous = None
+     # Get most probable state and its backtrack
+    for st, data in v[-1].items():
+        if data["prob"] == max_prob:
+            opt.append(st)
+            previous = st
+            break
+    for t in range(len(v) - 2, -1, -1):
+        opt.insert(0, v[t + 1][previous]["prev"])
+        previous = v[t + 1][previous]["prev"]
+    print(' '.join(opt), max_prob)
+#observe = ('I', 'hope', 'that', 'this', 'works')
+
 for line in stdin:
     observe = ()
     word = line.split()
-    #observe = ('I', 'hope', 'that', 'this', 'works')
     observe = tuple (word)
     #print (observe)
     viterbi(observe, states, start_probs, tran_probs, emit_probs)
+#viterbi(observe, states, start_probs, tran_probs, emit_probs)
