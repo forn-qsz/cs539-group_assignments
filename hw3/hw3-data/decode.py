@@ -1,5 +1,6 @@
 import operator
 import sys
+from sys import stdin
 
 
 
@@ -7,6 +8,26 @@ def viterbi(observe, states, start_probs, tran_probs, emit_probs):
     v = [{}, {}]
     #print(start_probs)
     #print(states)
+    combine = []
+    skip = False
+    for i in range(len(observe)):
+        if(skip):
+            skip = False
+            continue
+        else:
+            if(i+1 == len(observe)):
+                combine.append(observe[i])
+                break
+            one = True
+            for st in states:
+                if(st != '<s>' and observe[i]+observe[i+1] in emit_probs[st]):
+                    combine.append(observe[i]+observe[i+1])
+                    one = False
+                    skip = True
+                    break
+            if(one):
+                combine.append(observe[i])
+    observe = tuple(combine)
     for st1 in states:
         if(st1 == '<s>'):
             for st2 in states:
@@ -23,7 +44,7 @@ def viterbi(observe, states, start_probs, tran_probs, emit_probs):
                 v[1][state] = {"prob": probs * emit_probs[st][observe[1]], "prev": prev}
     #for key in v[1]:
         #print(key,v[1][key])
-    for i in range(2, 5):
+    for i in range(2, len(observe)):
         v.append({})
         for st in states:
             if (st != '<s>' and observe[i] in emit_probs[st]):
@@ -67,7 +88,7 @@ emit_probs = {}
 tran_probs = {}
 start_probs = {('<s>', '<s>') : 1.0}
 states = []
-observe = ('P', 'I', 'A', 'N', 'O')
+#observe = ('P', 'I', 'A', 'N', 'O')
 #observe = ('N', 'A', 'I', 'T', 'O')
 #tran_probs
 for line in open(sys.argv[1]):
@@ -86,16 +107,19 @@ for line in open(sys.argv[2]):
         if (l[3] == '#'):
             emit_probs[l[0]] = {l[2] : float(l[4])}
         elif (l[4] == '#'):
-            emit_probs[l[0]] = {l[2] + " " + l[3] : float(l[5])}
+            emit_probs[l[0]] = {l[2] + l[3] : float(l[5])}
         else:
-            emit_probs[l[0]] = {l[2] + " " + l[3] + " " + l[4] : float(l[6])}
+            emit_probs[l[0]] = {l[2] + l[3] + l[4] : float(l[6])}
     else:
         if (l[3] == '#'):
             emit_probs[l[0]][l[2]] = float(l[4])
         elif (l[4] == '#'):
-            emit_probs[l[0]][l[2] + " " + l[3]] = float(l[5])
+            emit_probs[l[0]][l[2] + l[3]] = float(l[5])
         else:
-            emit_probs[l[0]][l[2] + " " + l[3] + " " + l[4]] = float(l[6])
+            emit_probs[l[0]][l[2] + l[3] + l[4]] = float(l[6])
 #print(start_probs)
 #print(emit_probs)
-viterbi(observe, states, start_probs ,tran_probs, emit_probs)
+for line in stdin:
+    observe = tuple(line.split())
+    #print(observe)
+    viterbi(observe, states, start_probs ,tran_probs, emit_probs)
