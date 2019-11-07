@@ -1,3 +1,4 @@
+#!/usr/bin/python/
 import sys
 from collections import defaultdict
 
@@ -51,4 +52,4 @@ for line in sys.stdin:
                                 back[i][e1][e] = (e2, j)
 
     result = backtrack(back, len(jprons_input) - 1, END, END)[:-2]
-    print ' '.join(result), '#', "%.6e" % best[len(jprons_input)-1][END][END]
+    print(' '.join(result), '#', "%.6e" % best[len(jprons_input)-1][END][END])
