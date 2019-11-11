@@ -1,2 +1,5 @@
 # no vscode file
 .vscode/
+
+# no dropbox file
+*.dropbox.attr
