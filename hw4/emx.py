@@ -9,6 +9,13 @@ jpron = []
 all_path = []
 fractional_counts = []
 
+def multiplyList(myList) :
+    result = 1
+    for x in myList:
+         result = result * x
+    return result
+
+
 def normalize(probs):
     prob_factor = 1 / sum(probs)
     return [prob_factor * p for p in probs]
@@ -34,6 +41,10 @@ def ini_ek(ek_pair):
     for e in ek_pair:
         for j in ek_pair[e]:
             ek_pair[e][j] = 0
+def uni_ek(ek_pair):
+    for e in ek_pair:
+        for j in ek_pair[e]:
+            ek_pair[e][j] = 1/len(ek_pair[e])
 
 def em(fractional_counts, ek_pair):
     iterative = 0
@@ -79,7 +90,7 @@ def em(fractional_counts, ek_pair):
                 fractional_counts[i][l]['prob'] = p_xz[l]
         #print(fractional_counts)
         #m_step
-        corpus_prob.append(sum(c_prob))
+        corpus_prob.append(multiplyList(c_prob))
         #print(corpus_prob)
 
         #print table
@@ -132,6 +143,8 @@ for i in range(len(all_path)):
 for i in range(len(fractional_counts)):
     for j in range(len(fractional_counts[i])):
         fractional_counts[i][j]['prob'] = 1/len(fractional_counts[i])
+#ini_ek(ek_pair)
+#print(ek_pair)
 
 em(fractional_counts, ek_pair)
 #print(fractional_counts)
