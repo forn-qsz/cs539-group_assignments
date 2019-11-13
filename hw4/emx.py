@@ -2,12 +2,13 @@ from sys import stdin
 from collections import defaultdict
 from collections import Counter
 
-
 epron = []
 jpron = []
 
 all_path = []
 fractional_counts = []
+forward = defaultdict(lambda: defaultdict(float))
+backward = defaultdict(lambda: defaultdict(float))
 
 def multiplyList(myList) :
     result = 1
@@ -15,11 +16,62 @@ def multiplyList(myList) :
          result = result * x
     return result
 
-
 def normalize(probs):
     prob_factor = 1 / sum(probs)
     return [prob_factor * p for p in probs]
 
+def print_table(eprons, jprons, table):
+    for jp in jprons:
+        print('\t' + jp)
+    for i in range(len(eprons)):
+        print(eprons[i], end='\t')
+        for ep in table[i]:
+            print(ep, end='\t')
+
+def em_forward(eprons, jprons, table):
+    n, m = len(eprons), len(jprons)
+    forward['0']['0'] = 1
+    # consider each epron
+    for i in range(0, n):
+        epron = eprons[i]
+        # consider each start index for distributing
+        # j: the start index
+        print(i, list(forward[str(i)].keys()))
+        for j in list(forward[str(i)].keys()):
+            #print(i, j)
+            # m-j: the maximum number of jprons that the current epron can distribute
+            for k in range(1, min(m-int(j), 3)+1):
+                jseg = ''.join(jprons[int(j):int(j)+k])
+                if jseg in table[epron].keys():
+                    score = forward[str(i)][j] * table[epron][jseg]
+                else:
+                    score = 0
+                forward[str(i+1)][str(int(j)+k)] += score
+
+def em_backward(eprons, jprons, table):
+    n, m = len(eprons), len(jprons)
+    backward[str(n+1)][str(m+1)] = 1
+    # consider each epron
+    for i in range(n+1, 1, -1):
+        epron = eprons[i-2]
+        #print(epron)
+        # consider each start index for distributing
+        # j: the start index
+        print(i, list(backward[str(i)].keys()))
+        for j in list(backward[str(i)].keys()):
+
+            # m-j: the maximum number of jprons that the current epron can distribute
+            for k in range(1, min(int(j)-1, 3)+1):
+                #print(i, j)
+                print(int(j)-k-1,int(j)-1)
+                jseg = ''.join(jprons[int(j)-k-1:int(j)-1])
+                #print(jseg)
+                if jseg in table[epron].keys():
+                    score = backward[str(i)][j] * table[epron][jseg]
+                else:
+                    score = 0
+                backward[str(i-1)][str(int(j)-k)] += score
+    #print(backward)
 def enum(epron, jpron, path, ek_pair, pair, count=0):
     if(len(epron) == 1):
         k = []
@@ -45,6 +97,7 @@ def uni_ek(ek_pair):
     for e in ek_pair:
         for j in ek_pair[e]:
             ek_pair[e][j] = 1/len(ek_pair[e])
+    return ek_pair
 
 def em(fractional_counts, ek_pair):
     iterative = 0
@@ -145,6 +198,8 @@ for i in range(len(fractional_counts)):
         fractional_counts[i][j]['prob'] = 1/len(fractional_counts[i])
 #ini_ek(ek_pair)
 #print(ek_pair)
-
-em(fractional_counts, ek_pair)
+em_forward(epron[0], jpron[0], uni_ek(ek_pair))
+em_backward(epron[0], jpron[0], uni_ek(ek_pair))
+#print(backward)
+#em(fractional_counts, ek_pair)
 #print(fractional_counts)
