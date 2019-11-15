@@ -1,4 +1,5 @@
 from sys import stdin
+import sys
 from collections import defaultdict
 from collections import Counter
 import copy
@@ -10,13 +11,14 @@ class Helper:
         self.ek_pair = {}
         self.all_path = []
         self.frac_counts = {}
-
+        self.iter = 0
     def read(self):
+        self.iter = int(sys.argv[1])
         index = 0
         for line in stdin:
-            if(index % 2 == 0):
+            if(index % 3 == 0):
                 self.eprons_list.append(line.split())
-            elif(index % 2 == 1):
+            elif(index % 3 == 1):
                 self.jprons_list.append(line.split())
             index += 1
         for i in self.eprons_list:
@@ -145,7 +147,7 @@ def main():
     iterative = 0
     corpus_prob = 0
     #em
-    while(1 - corpus_prob > 0.01 and iterative < 15):
+    while(1 - corpus_prob > 0.01 and iterative < h.iter):
         corpus_prob = 1
         #E-step
         h.ini_frac_counts()
@@ -158,16 +160,17 @@ def main():
         h.normalize()
         #print table
         non_zeros = 0
-        print("iteration " + str(iterative) + '    ----- corpus prob = ' + str(corpus_prob))
+        sys.stderr.write("iteration " + str(iterative) + '    ----- corpus prob = ' + str(corpus_prob) + '\n')
         for e in h.ek_pair:
             l = []
-            l.append(e + '|->   ')
+            l.append(e + '|->' + '\t')
             for j in h.ek_pair[e]:
                 if (h.ek_pair[e][j] > 0.01):
                     l.append(j + ': ' + str(round(h.ek_pair[e][j], 2)) + '    ')
                     non_zeros += 1
-            print(''.join(l))
-        print('nonzeros = ' + str(non_zeros))
+            sys.stderr.write(''.join(l) + '\n')
+        sys.stderr.write('nonzeros = ' + str(non_zeros) + '\n')
+        sys.stderr.write(' \n')
         iterative += 1
 if __name__ == "__main__":
     main()
