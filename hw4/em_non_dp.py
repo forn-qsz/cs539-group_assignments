@@ -1,6 +1,7 @@
 from sys import stdin
 from collections import defaultdict
 from collections import Counter
+import sys
 
 
 epron = []
@@ -45,12 +46,16 @@ def uni_ek(ek_pair):
     for e in ek_pair:
         for j in ek_pair[e]:
             ek_pair[e][j] = 1/len(ek_pair[e])
+def print_ek(ek_pair):
+    for e in ek_pair:
+        for j in ek_pair[e]:
+            ek_pair[e][j] = 0
 
-def em(fractional_counts, ek_pair):
+def em(fractional_counts, ek_pair, iter):
     iterative = 0
     corpus_prob = [0]
     #e_step
-    while(1 - corpus_prob[iterative] > 0.01 and iterative < 20):
+    while(1 - corpus_prob[iterative] > 0.01 and iterative < iter):
         ini_ek(ek_pair)
         for i in range(len(all_path)):
             for j in range(len(all_path[i])):
@@ -95,27 +100,27 @@ def em(fractional_counts, ek_pair):
 
         #print table
         non_zeros = 0
-        print("iteration " + str(iterative) + '    ----- corpus prob = ' + str(corpus_prob[iterative]))
+        sys.stderr.write("iteration " + str(iterative) + '    ----- corpus prob = ' + str(corpus_prob[iterative]) + '\n')
         for e in ek_pair:
             l = []
-            l.append(e + '|->   ')
+            l.append(e + ' |->' + '\t')
             for j in ek_pair[e]:
                 if (ek_pair[e][j] > 0.01):
                     l.append(j + ': ' + str(round(ek_pair[e][j], 2)) + '    ')
                     non_zeros += 1
-            print(''.join(l))
-        print('nonzeros = ' + str(non_zeros))
-
+            sys.stderr.write(''.join(l) + '\n')
+        sys.stderr.write('nonzeros = ' + str(non_zeros) + '\n')
+        sys.stderr.write(' \n')
         iterative += 1
 
 
 
 index = 0
+iter = int(sys.argv[1])
 for line in stdin:
-    #print(line)
-    if(index % 2 == 0):
+    if(index % 3 == 0):
         epron.append(line.split())
-    elif(index % 2 == 1):
+    elif(index % 3 == 1):
         jpron.append(line.split())
     index += 1
 
@@ -144,7 +149,7 @@ for i in range(len(fractional_counts)):
     for j in range(len(fractional_counts[i])):
         fractional_counts[i][j]['prob'] = 1/len(fractional_counts[i])
 #ini_ek(ek_pair)
-print(ek_pair)
+#print(ek_pair)
+em(fractional_counts, ek_pair, iter)
 
-#em(fractional_counts, ek_pair)
 #print(fractional_counts)
