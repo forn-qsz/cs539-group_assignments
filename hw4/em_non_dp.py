@@ -2,6 +2,7 @@ from sys import stdin
 from collections import defaultdict
 from collections import Counter
 import sys
+import math
 
 
 epron = []
@@ -11,9 +12,9 @@ all_path = []
 fractional_counts = []
 
 def multiplyList(myList) :
-    result = 1
+    result = math.log(1)
     for x in myList:
-         result = result * x
+         result += math.log(x)
     return result
 
 
@@ -26,8 +27,8 @@ def enum(epron, jpron, path, ek_pair, pair, count=0):
         k = []
         for i in range(len(jpron)):
             k.append(jpron[i])
-        path[(epron[0], count)] = ''.join(k)
-        ek_pair[epron[0]][''.join(k)] = 0
+        path[(epron[0], count)] = ' '.join(k)
+        ek_pair[epron[0]][' '.join(k)] = 0
         all_path[pair].append(path.copy())
         count = 0
     else:
@@ -35,8 +36,8 @@ def enum(epron, jpron, path, ek_pair, pair, count=0):
             k = []
             for j in range(i + 1):
                 k.append(jpron[j])
-            path[(epron[0], count)] = ''.join(k)
-            ek_pair[epron[0]][''.join(k)] = 0
+            path[(epron[0], count)] = ' '.join(k)
+            ek_pair[epron[0]][' '.join(k)] = 0
             enum(epron[1:], jpron[i+1:], path, ek_pair, pair, count + 1)
 def ini_ek(ek_pair):
     for e in ek_pair:
@@ -49,7 +50,8 @@ def uni_ek(ek_pair):
 def print_ek(ek_pair):
     for e in ek_pair:
         for j in ek_pair[e]:
-            ek_pair[e][j] = 0
+            if(ek_pair[e][j] > 0.01):
+                print(e + " : " + j + " # " + str(ek_pair[e][j]))
 
 def em(fractional_counts, ek_pair, iter):
     iterative = 0
@@ -151,5 +153,5 @@ for i in range(len(fractional_counts)):
 #ini_ek(ek_pair)
 #print(ek_pair)
 em(fractional_counts, ek_pair, iter)
-
+print_ek(ek_pair)
 #print(fractional_counts)
