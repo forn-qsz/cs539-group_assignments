@@ -149,9 +149,9 @@ def main():
     h = Helper()
     h.read()
     iteration = 0
-    print(h.bigram['_'])
-    '''
-    while(iteration < 5):
+    #print(h.bigram['_'])
+
+    while(iteration < 50):
 
         #E_step
         for i in range(len(h.cipher_list)):
@@ -168,7 +168,7 @@ def main():
         for j in range(len(h.cipher_list[i])):
             sentence.append(h.e_c_result[h.cipher_list[i][j]])
         print(''.join(sentence))
-    '''
+    
 
 
 if __name__ == "__main__":
