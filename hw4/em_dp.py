@@ -1,8 +1,8 @@
 from sys import stdin
 import sys
 from collections import defaultdict
-from collections import Counter
 import copy
+import math
 
 class Helper:
     def __init__(self):
@@ -10,7 +10,7 @@ class Helper:
         self.jprons_list = []
         self.ek_pair = {}
         self.all_path = []
-        self.frac_counts = {}
+        self.frac_counts = defaultdict(lambda: defaultdict(float))
         self.iter = 0
     def read(self):
         self.iter = int(sys.argv[1])
@@ -28,7 +28,7 @@ class Helper:
             path = defaultdict(dict)
             self.all_path.append([])
             self.enum(self.eprons_list[i], self.jprons_list[i], path, self.ek_pair, i)
-        self.frac_counts = copy.deepcopy(self.ek_pair)
+        #self.frac_counts = copy.deepcopy(self.ek_pair)
 
     def uni_ek(self):
         for e in self.ek_pair:
@@ -36,11 +36,7 @@ class Helper:
                 self.ek_pair[e][j] = 1/len(self.ek_pair[e])
 
     def ini_frac_counts(self):
-        for e in self.frac_counts:
-            for j in self.frac_counts[e]:
-                self.frac_counts[e][j] = 0
-        return self.frac_counts
-
+        self.frac_counts = defaultdict(lambda: defaultdict(float))
     def enum(self, epron, jpron, path, ek_pair, pair, count=0):
         if(len(epron) == 1):
             k = []
@@ -67,6 +63,11 @@ class Helper:
             prob_factor = 1 / sum(probs)
             for j in self.ek_pair[e]:
                 self.ek_pair[e][j] *= prob_factor
+    def print_ek(self):
+        for e in self.ek_pair:
+            for j in self.ek_pair[e]:
+                if(self.ek_pair[e][j] > 0.01):
+                    print(e + " : " + j + " # " + str(self.ek_pair[e][j]))
 
 class EM:
     def __init__(self, eprons, jprons, table):
@@ -145,32 +146,34 @@ def main():
     #data1
     h.uni_ek()
     iterative = 0
-    corpus_prob = 0
+    #corpus_prob = 1
     #em
-    while(1 - corpus_prob > 0.01 and iterative < h.iter):
-        corpus_prob = 1
+    while(iterative < h.iter):
+        corpus_prob = math.log(1)
         #E-step
         h.ini_frac_counts()
         for i in range(len(h.eprons_list)):
             em = EM(h.eprons_list[i], h.jprons_list[i], h.ek_pair)
             h.frac_counts = em.dp(h.frac_counts)
-            corpus_prob *= em.p_x
+            corpus_prob += math.log(em.p_x)
         #M_step
         h.ek_pair = copy.deepcopy(h.frac_counts)
         h.normalize()
         #print table
         non_zeros = 0
-        sys.stderr.write("iteration " + str(iterative) + '    ----- corpus prob = ' + str(corpus_prob) + '\n')
+        #print(corpus_prob)
+        sys.stderr.write("iteration " + str(iterative) + '    ----- log corpus prob = ' + str(corpus_prob) + '\n')
         for e in h.ek_pair:
             l = []
             l.append(e + '|->' + '\t')
             for j in h.ek_pair[e]:
                 if (h.ek_pair[e][j] > 0.01):
-                    l.append(j + ': ' + str(round(h.ek_pair[e][j], 2)) + '    ')
+                    l.append(j + ': ' + str(round(h.ek_pair[e][j], 2)) + ' ' + '\t')
                     non_zeros += 1
             sys.stderr.write(''.join(l) + '\n')
         sys.stderr.write('nonzeros = ' + str(non_zeros) + '\n')
-        sys.stderr.write(' \n')
+        sys.stderr.write('\n')
         iterative += 1
+    h.print_ek()
 if __name__ == "__main__":
     main()
