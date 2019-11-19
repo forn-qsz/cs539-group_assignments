@@ -52,7 +52,10 @@ for i in range(len(all_path)):
     for j, path in enumerate(all_path[i]):
         prob = 1
         for jp in path:
-            prob *= ek_pair[jp[0]][path[jp]]
+            if(ek_pair[jp[0]][path[jp]]):
+                prob *= ek_pair[jp[0]][path[jp]]
+            else:
+                prob *= 0.001
         if(prob > max):
             max = prob
             max_index = j
