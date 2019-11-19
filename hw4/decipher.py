@@ -2,6 +2,7 @@ from sys import stdin
 from collections import defaultdict
 import sys
 import operator
+import math
 
 START, END = ('<s>', '</s>')
 
@@ -15,6 +16,7 @@ class Helper:
         self.voc = []
         self.cipher_list = []
         self.e_c_result = defaultdict(str)
+        self.iter = int(sys.argv[1])
         #self.token = 0
     def read(self):
         for sentence in stdin:
@@ -42,6 +44,8 @@ class Helper:
                         self.e_c[e1][e2] = 1/(len(self.voc)-2)
         self.voc.remove('<s>')
         self.voc.remove('</s>')
+    def ini_frac_counts(self):
+        self.frac_counts = defaultdict(lambda: defaultdict(float))
     def normalize(self):
         for e1 in self.voc:
             #if(e1 in self.frac_counts):
@@ -68,7 +72,7 @@ class Helper:
         for e2 in self.voc:
             max = -1
             d = 'none'
-            #print(max(self.e_c[e2].items(), key=operator.itemgetter(1))[0], e2)
+            #dd = max(self.e_c[e2].items(), key=operator.itemgetter(1))[0]
 
             for e1 in self.voc:
                 if(self.e_c[e1][e2] > max):
@@ -76,6 +80,7 @@ class Helper:
                     d = e1
             self.e_c_result[e2] = d
             #print(e2, d)
+
 
 
 
@@ -90,11 +95,12 @@ class EM:
         self.fraction = defaultdict(lambda: defaultdict(float))
         self.o = cipher
         self.voc = list(self.table.keys())
-
+        self.entro = 0
 
     def forward_func(self):
         T = len(self.o)
         for t in range(T):
+            entro = 0
             for e1 in self.voc:
                 if(t == 0):
                     self.forward[t][e1] = self.transaction['<s>'][e1] * self.table[e1][self.o[t]]#<s>
@@ -103,6 +109,12 @@ class EM:
                     for e2 in self.voc:
                         p += self.forward[t-1][e2] * self.transaction[e2][e1]
                     self.forward[t][e1] = p * self.table[e1][self.o[t]]
+                if(self.table[e1][self.o[t]] != 0):
+                    entro += self.table[e1][self.o[t]] * math.log(self.table[e1][self.o[t]], 2)
+            #tmp.append(entro)
+        #print(sum(tmp))
+        #self.entro
+        #print(self.entro, self.o[0])
         p = 0
         for e in self.voc:
             self.forward[T-1][e] *= self.transaction[e]['</s>']#</s>
@@ -128,9 +140,9 @@ class EM:
     def dp(self, f_counts):
         T = len(self.o)
 
-        self.forward_func()
+        self.cp = self.forward_func()
         self.backward_func()
-
+        #print(self.cp)
         for t in range(T):
             p_x = 0
             for e in self.voc:
@@ -140,7 +152,6 @@ class EM:
         for e in self.voc:
             for t in range(T):
                 f_counts[e][self.o[t]] += self.combine[t][e]
-                #f_counts[self.o[t]][e] += self.combine[self.o[t]][e]
         return f_counts
 
 
@@ -151,24 +162,31 @@ def main():
     iteration = 0
     #print(h.bigram['_'])
 
-    while(iteration < 50):
-
+    while(iteration < h.iter):
+        h.ini_frac_counts()
+        #entro = 0
         #E_step
         for i in range(len(h.cipher_list)):
             em = EM(h.cipher_list[i], h.bigram, h.e_c)
             h.frac_counts = em.dp(h.frac_counts)
+            #entro += em.entro
+        #entro /= len(h.cipher_list)
         #M_step
         h.normalize()
         iteration += 1
     #sys.stderr.write("epoch " + str(iteration) + '    ----- log(corpus prob) =  0' + '\n')
-    #h.print_table()
+    #print(entro)
+    h.print_table()
     h.decode()
+    #print(h.e_c_result)
+
     for i in range(len(h.cipher_list)):
         sentence = []
         for j in range(len(h.cipher_list[i])):
             sentence.append(h.e_c_result[h.cipher_list[i][j]])
         print(''.join(sentence))
-    
+
+
 
 
 if __name__ == "__main__":
