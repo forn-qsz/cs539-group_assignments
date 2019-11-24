@@ -1,8 +1,6 @@
 import sys
 from collections import defaultdict
 
-logs = sys.stderr
-
 class helper:
     open_brackets = '('
     close_brackets = ')'
@@ -59,12 +57,6 @@ class helper:
                         stack.pop()
                     break
 
-    def read(self):
-        for line in sys.stdin:
-            self.result_dic = defaultdict(dict)
-            self.list_to_dic(line.split(' '), [], True)
-            self.result_dic_list.append(self.result_dic.copy())
-
     def enum_result_dic(self, result_dic, begin=True):
         for k, v in result_dic.items():
             if isinstance(v, dict):
@@ -80,25 +72,34 @@ class helper:
                 else:
                     print(' ' + k, end='')
 
+    def binarized_dic(self, k, v):
+        bi_dic = defaultdict(dict)
+        k_p = k + '\''
+        v_p = v.copy()
+        ## The first kv pair
+        bi_dic[list(v.keys())[0]] = v_p.pop(list(v.keys())[0])
+        ## The second kv pair
+        bi_dic[k_p] = v_p
+        return bi_dic
+
+    def binarize(self, result_dic):
+        for k, v in result_dic.items():
+            if isinstance(v, dict):
+                if len(v.keys()) > 2:
+                    result_dic[k] = self.binarized_dic(k, v)
+                self.binarize(result_dic[k])
+
+    def read(self):
+        for line in sys.stdin:
+            self.result_dic = defaultdict(dict)
+            self.list_to_dic(line.split(' '), [], True)
+            self.binarize(self.result_dic)
+            self.result_dic_list.append(self.result_dic.copy())
+
     def output(self):
         for result_dic in self.result_dic_list:
             self.enum_result_dic(result_dic)
             print()
-        for k, v in self.word_count_dic.items():
-            if v > 1:
-                logs.write(k + '\n')
-
-'''
-class Tree(object):
-
-    def __init__(self, lines):
-
-        self.lines = lines
-
-    def word_counts(self):
-        pass
-'''
-        
 
 def main():
     h = helper()
