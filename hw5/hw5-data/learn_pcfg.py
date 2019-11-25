@@ -61,9 +61,9 @@ class helper:
     def count_result_dic(self, result_dic):
         for k, v in result_dic.items():
             if isinstance(v, dict):
-                for k_2 in v.keys():
-                    key = k + ' -> ' + k_2
-                    self.tag_count_dic[key] += 1
+                key = ' '.join(k_2 for k_2 in v.keys())
+                key = k + ' -> ' + key
+                self.tag_count_dic[key] += 1
                 self.count_result_dic(v)
 
     def read(self):
