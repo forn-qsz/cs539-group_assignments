@@ -8,10 +8,12 @@ class helper:
     result_dic = None
     result_dic_list = []
     word_count_dic = defaultdict(int)
-    tag_count_dic = defaultdict(int)
+    tag_count_dic = defaultdict(float)
+    px_count_dic = defaultdict(float)
+    rules = [0, 0, 0]
 
     def __init__(self):
-        
+
         ## Read while initializing
         self.read()
 
@@ -62,7 +64,7 @@ class helper:
         for k, v in result_dic.items():
             if isinstance(v, dict):
                 key = ' '.join(k_2 for k_2 in v.keys())
-                key = k + ' -> ' + key
+                key = (k, key)
                 self.tag_count_dic[key] += 1
                 self.count_result_dic(v)
 
@@ -73,10 +75,25 @@ class helper:
             self.result_dic_list.append(self.result_dic.copy())
 
     def output(self):
-        for result_dic in self.result_dic_list[:2]:
+        for result_dic in self.result_dic_list:
             self.count_result_dic(result_dic)
-            print(self.tag_count_dic)
+            #print(self.tag_count_dic)
 
+        for k in self.tag_count_dic:
+            self.px_count_dic[k[0]] += self.tag_count_dic[k]
+        #for k in self.px_count_dic:
+            #print(k , self.px_count_dic[k])
+        for k in self.tag_count_dic:
+            self.tag_count_dic[k] /= self.px_count_dic[k[0]]
+        for k in self.tag_count_dic:
+            print(k[0] + ' -> ' + k[1] + ' # ' + str(round(self.tag_count_dic[k], 4)) )
+            if(k[1] in self.word_count_dic):
+                self.rules[2] += 1
+            elif(len(k[1].split(' ')) == 2):
+                self.rules[0] += 1
+            else:
+                self.rules[1] += 1
+        print('binary rules : ' + str(self.rules[0]) +  ' unary rules : ' + str(self.rules[1]) + ' lexical rules : ' + str(self.rules[2]))
 def main():
     h = helper()
     h.output()
