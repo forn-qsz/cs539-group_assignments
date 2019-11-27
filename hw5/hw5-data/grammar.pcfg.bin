@@ -1,0 +1,504 @@
+TOP -> SQ # 0.0328
+SQ -> VBZ SQ' # 0.0672
+VBZ -> Does # 0.125
+SQ' -> NP VP # 0.475
+NP -> DT NN # 0.0681
+DT -> this # 0.0337
+NN -> flight # 0.2394
+VP -> VB NP # 0.3591
+VB -> serve # 0.0398
+NP -> NN # 0.0547
+NN -> dinner # 0.0734
+TOP -> S # 0.3197
+S -> NP VP # 0.2174
+NP -> PRP # 0.0466
+PRP -> I # 0.7885
+VP -> VBP NP # 0.0829
+VBP -> need # 0.1171
+NP -> NP NP' # 0.0251
+DT -> a # 0.101
+NP' -> PP VP # 0.1
+PP -> TO NP # 0.467
+TO -> to # 1.0
+NP -> NNP # 0.2616
+NNP -> Seattle # 0.006
+VP -> VBG NP # 0.0166
+VBG -> <unk> # 0.0882
+NP -> NP PP # 0.1577
+NN -> stop # 0.0193
+PP -> IN NP # 0.5152
+IN -> in # 0.1613
+NNP -> Minneapolis # 0.018
+VP -> VBP S # 0.0166
+S -> VP # 0.7295
+VP -> TO VP # 0.0608
+VP -> VB S # 0.0442
+VB -> have # 0.0284
+VP -> VBN # 0.0028
+VBN -> served # 0.6667
+VBP -> have # 0.0631
+NP -> NP SBAR # 0.0134
+NP -> CD NNS # 0.0036
+CD -> two # 0.0253
+NNS -> <unk> # 0.0214
+SBAR -> WHNP S # 0.913
+WHNP -> WDT # 0.2016
+WDT -> that # 0.1533
+VP -> MD VP # 0.0663
+MD -> would # 0.3929
+VB -> like # 0.108
+VP -> VB VP' # 0.0276
+VB -> visit # 0.0114
+VP' -> NP VP'' # 0.05
+PRP -> me # 0.0385
+VP'' -> PP ADVP # 0.5
+IN -> on # 0.2258
+NNP -> Wednesday # 0.036
+ADVP -> ADVP PP # 0.0833
+ADVP -> RB # 0.625
+RB -> here # 0.0345
+NP -> NP # 0.0233
+NNP -> C # 0.012
+S -> S CC # 0.0145
+NP -> DT JJ # 0.0045
+DT -> the # 0.6202
+JJ -> other # 0.0606
+VP -> VBZ PP # 0.0193
+VBZ -> <unk> # 0.0469
+NNP -> Miami # 0.018
+CC -> and # 0.9667
+NN -> <unk> # 0.0656
+NP' -> VP SBAR # 0.02
+VP -> VBG PP # 0.0608
+NNP -> Denver # 0.018
+VP' -> NP ADVP # 0.05
+NNP -> A # 0.018
+DT -> The # 0.024
+MD -> should # 0.1786
+VB -> <unk> # 0.0511
+NN -> tomorrow # 0.027
+VB -> arrive # 0.017
+VP' -> PP NP # 0.2
+IN -> at # 0.0276
+NP -> CD RB # 0.0215
+CD -> eleven # 0.0253
+RB -> a.m. # 0.0862
+NP -> QP RB # 0.0018
+QP -> RB CD # 0.1667
+RB -> around # 0.0345
+VP -> VB PP # 0.0359
+VB -> return # 0.0114
+NNP -> Tuesday # 0.009
+VB -> leave # 0.0284
+CD -> seven # 0.1392
+RB -> p.m. # 0.3448
+TOP -> SBARQ # 0.2418
+SBARQ -> WHNP SQ # 0.9664
+WHNP -> WHNP ADJP # 0.004
+WHNP -> WRB RB # 0.0202
+WRB -> How # 0.8182
+RB -> much # 0.0862
+ADJP -> JJ # 0.5556
+JJ -> <unk> # 0.2273
+SQ -> MD SQ' # 0.0224
+NP -> DT NP' # 0.0376
+NP' -> JJ NN # 0.11
+JJ -> first # 0.1061
+NN -> fare # 0.0618
+VP -> VB # 0.0193
+VB -> cost # 0.017
+VB -> find # 0.017
+VBZ -> goes # 0.0312
+NNP -> Orlando # 0.036
+VP -> VBZ NP # 0.011
+VBZ -> serves # 0.0312
+NNP -> Jose # 0.006
+VP -> VP CC # 0.0193
+IN -> around # 0.023
+CD -> ten # 0.0506
+VP' -> PRT NP # 0.05
+PRT -> RP # 1.0
+RP -> <unk> # 1.0
+NN -> number # 0.0193
+IN -> for # 0.0184
+NP' -> NNP NN # 0.03
+NNP -> <unk> # 0.045
+VBZ -> arrives # 0.0312
+VB -> Show # 0.517
+NP -> NP VP # 0.0063
+NP -> PDT NP' # 0.0027
+PDT -> all # 1.0
+NP' -> DT NNS # 0.03
+NNS -> flights # 0.5964
+VBG -> leaving # 0.1765
+NNP -> Baltimore # 0.009
+DT -> that # 0.024
+WHNP -> WP # 0.1129
+WP -> What # 0.9667
+SQ -> VBP NP # 0.0597
+VBP -> are # 0.2703
+NP -> DT NNS # 0.0573
+NNP -> Tampa # 0.021
+WHNP -> WHNP PP # 0.2097
+WDT -> Which # 0.2701
+IN -> of # 0.1843
+NP -> DT # 0.0125
+DT -> these # 0.0913
+SQ -> VP # 0.3806
+VP -> VBP PP # 0.0718
+VBP -> stop # 0.027
+NNP -> Nashville # 0.033
+VBP -> serve # 0.0631
+NNP -> Angeles # 0.018
+NP -> JJ NNP # 0.0027
+JJ -> next # 0.0758
+NNP -> Saturday # 0.021
+NNP -> Phoenix # 0.027
+NNP -> Chicago # 0.006
+NNP -> Indianapolis # 0.009
+NNP -> Montreal # 0.027
+WHNP -> WHNP # 0.0887
+WHNP -> WDT NNS # 0.3226
+WDT -> What # 0.5693
+SQ -> VBP SQ' # 0.194
+VBP -> do # 0.0541
+PRP -> you # 0.1154
+NNS -> ones # 0.0143
+WHNP -> WDT NN # 0.0242
+NN -> airline # 0.0154
+SQ -> VBZ NP # 0.2612
+VBZ -> is # 0.5625
+VB -> Thank # 0.0114
+WDT -> what # 0.0073
+NN -> time # 0.0077
+PRP -> it # 0.0385
+VBP -> make # 0.018
+VB -> travel # 0.017
+NNP -> Houston # 0.018
+NN -> one # 0.0077
+NN -> aircraft # 0.0116
+VP -> VBN PP # 0.0055
+VBN -> <unk> # 0.3333
+IN -> by # 0.0138
+VP -> VBP ADJP # 0.0083
+VBP -> <unk> # 0.045
+ADJP -> JJ PP # 0.0556
+NNP -> Burbank # 0.006
+NN -> afternoon # 0.0232
+NP -> DT NX # 0.0009
+NX -> NX CC # 0.5
+NX -> NN # 0.5
+NNP -> Charlotte # 0.009
+NNP -> Newark # 0.039
+NN -> evening # 0.0386
+IN -> from # 0.0599
+NNP -> Ontario # 0.006
+NNS -> meals # 0.0143
+VP -> VBP VP # 0.0028
+VP' -> PP X # 0.05
+NNP -> Washington # 0.006
+X -> TO # 0.2222
+VB -> fly # 0.0341
+NNP -> July # 0.012
+SBARQ -> WHADVP SQ # 0.0168
+WHADVP -> WRB # 1.0
+WRB -> Where # 0.1818
+VB -> stop # 0.0114
+NN -> cost # 0.0116
+JJ -> round # 0.1818
+NNP -> Alaska # 0.006
+NNP -> Airlines # 0.048
+S -> INTJ VP # 0.0193
+INTJ -> UH # 1.0
+UH -> Please # 0.2727
+VB -> list # 0.017
+DT -> all # 0.0433
+NP' -> NNP NP'' # 0.01
+NP'' -> CD NN # 0.1429
+VBZ -> does # 0.0312
+VB -> List # 0.0227
+NP -> NNP NNS # 0.0018
+IN -> between # 0.0415
+NP -> CD NP' # 0.0045
+NP' -> CC RB # 0.01
+MD -> 'd # 0.3571
+NN -> class # 0.0463
+TOP -> FRAG # 0.3893
+FRAG -> NP # 0.6073
+VBP -> Do # 0.018
+NP -> NN CD # 0.0009
+CD -> six # 0.0759
+FRAG -> NP INTJ # 0.0052
+NP -> NNP JJ # 0.0009
+UH -> <unk> # 0.4545
+NNP -> Toronto # 0.024
+NN -> type # 0.0077
+NP -> NNP POS # 0.0027
+POS -> 's # 1.0
+NP' -> NN CD # 0.04
+TOP -> INTJ # 0.0061
+UH -> Thanks # 0.2727
+IN -> with # 0.0184
+NP' -> JJS NN # 0.09
+JJS -> <unk> # 0.0714
+VBZ -> Is # 0.0469
+NN -> morning # 0.0656
+NP' -> PP X # 0.01
+NNP -> American # 0.006
+CD -> five # 0.2152
+NP' -> JJ NP'' # 0.02
+NP'' -> NNP NN # 0.1429
+SQ' -> NP SQ'' # 0.025
+SQ'' -> PP SBAR # 0.3333
+NN -> day # 0.0116
+NP' -> NN NNS # 0.17
+NNP -> Friday # 0.015
+VBP -> go # 0.0721
+IN -> <unk> # 0.023
+NNP -> York # 0.018
+NP' -> CD NN # 0.03
+CD -> <unk> # 0.0633
+NN -> lunch # 0.0077
+FRAG -> X NP # 0.0105
+X -> WRB IN # 0.1111
+IN -> about # 0.0138
+VBZ -> leaves # 0.0469
+NP -> CD # 0.0045
+VP -> VBD NP # 0.0028
+VBD -> <unk> # 1.0
+NNP -> Sunday # 0.024
+S -> PP S' # 0.0097
+IN -> On # 0.023
+NNP -> Monday # 0.027
+S' -> NP VP # 1.0
+SBARQ -> WHNP S # 0.0168
+DT -> those # 0.0144
+JJ -> nonstop # 0.1515
+NNP -> Thursday # 0.027
+VP' -> ADVP VP'' # 0.05
+RB -> <unk> # 0.1207
+VP'' -> PP ADJP # 0.5
+ADJP -> RB PP # 0.0556
+RB -> early # 0.0345
+PP -> IN ADJP # 0.0025
+MD -> <unk> # 0.0714
+VB -> show # 0.017
+NP -> NN NNS # 0.0099
+NP' -> PP SBAR # 0.03
+NP -> JJ NN # 0.0116
+NP -> NP CC # 0.0116
+NN -> Flight # 0.0193
+NNS -> numbers # 0.0071
+NP -> NNP CD # 0.0036
+NP -> CD JJ # 0.0009
+VP -> VBP FRAG # 0.0028
+VBP -> mean # 0.009
+FRAG -> NP PP # 0.0576
+IN -> via # 0.0138
+CD -> thirty # 0.1013
+VBP -> want # 0.018
+NP -> NNP NN # 0.009
+S -> ADVP S' # 0.0048
+NNP -> Detroit # 0.006
+VBP -> leave # 0.1081
+VBP -> arrive # 0.045
+PP -> ADVP PP' # 0.0025
+PP' -> IN NP # 0.5
+NNP -> Oakland # 0.018
+JJS -> latest # 0.1786
+VP -> VBP ADVP # 0.011
+VBP -> depart # 0.036
+ADVP -> RBS # 0.125
+RBS -> latest # 0.75
+RB -> last # 0.0172
+VP -> VBZ ADJP # 0.0138
+JJ -> last # 0.0606
+VP -> VBZ ADVP # 0.0055
+NNS -> fares # 0.075
+CD -> one # 0.1899
+NN -> way # 0.0309
+VBP -> Are # 0.018
+DT -> any # 0.0096
+NP' -> JJ NNS # 0.02
+WHNP -> WHADJP NNS # 0.0121
+WHADJP -> WRB JJ # 1.0
+JJ -> many # 0.0455
+SQ' -> NP PP # 0.45
+NP -> CD NN # 0.0063
+JJS -> earliest # 0.1071
+VBG -> arriving # 0.4118
+IN -> after # 0.0645
+NP -> DT JJS # 0.0018
+TOP -> X # 0.0041
+X -> SBARQ # 0.1111
+PP -> IN # 0.0025
+NNP -> Dallas # 0.015
+NP' -> NN NP'' # 0.02
+NP'' -> SYM CD # 0.2857
+SYM -> <unk> # 0.2857
+NNP -> Francisco # 0.03
+NP -> QP NN # 0.0018
+QP -> IN QP' # 0.1667
+QP' -> JJS CD # 0.2857
+JJS -> least # 0.0714
+NP -> RB NP' # 0.0018
+RB -> only # 0.0345
+NP' -> VBG NNS # 0.01
+NP' -> SBAR PP # 0.01
+NNP -> Cincinnati # 0.012
+NP -> JJ NNS # 0.0036
+NNS -> airlines # 0.0107
+VBP -> fly # 0.018
+VP -> VBP VP' # 0.0166
+VP' -> NP PP # 0.45
+NP -> NNP NP' # 0.0018
+SQ -> X SQ' # 0.0075
+X -> VBZ NP # 0.1111
+SQ' -> VBZ SQ'' # 0.025
+SQ'' -> NP ADJP # 0.3333
+NP -> NP ADJP # 0.0018
+NN -> transportation # 0.0232
+TOP -> SBAR # 0.002
+SBAR -> WHNP SQ # 0.0435
+NNS -> stops # 0.0107
+NP -> EX # 0.0152
+EX -> there # 1.0
+NNP -> City # 0.03
+NNS -> stopovers # 0.0107
+NNP -> Delta # 0.006
+CD -> nine # 0.0633
+DT -> Any # 0.0096
+NP'' -> X NNS # 0.1429
+X -> JJ # 0.1111
+NNP -> Louis # 0.006
+IN -> before # 0.0415
+NP -> SYM # 0.0018
+SYM -> A # 0.2857
+NP -> NNS # 0.0645
+NNP -> Milwaukee # 0.009
+PP -> TO ADVP # 0.0025
+NNP -> Pittsburgh # 0.018
+NNP -> Vegas # 0.036
+NNS -> Flights # 0.1571
+NNP -> Cleveland # 0.048
+FRAG -> VP # 0.0471
+VP -> VBG VP' # 0.011
+VBG -> Leaving # 0.1176
+NN -> noon # 0.0154
+NNP -> Air # 0.009
+FRAG -> PP VP # 0.0052
+NP' -> CC PP # 0.01
+RB -> first # 0.0172
+SBAR -> S # 0.0435
+PP -> PP CC # 0.0025
+ADVP -> NP RB # 0.1667
+NP -> QP NNS # 0.0072
+QP -> RBR QP' # 0.3333
+RBR -> less # 1.0
+QP' -> IN CD # 0.5714
+IN -> than # 0.0323
+NNS -> minutes # 0.0179
+RB -> apart # 0.069
+NP -> NP NNS # 0.0009
+NP' -> NNS PP # 0.01
+DT -> <unk> # 0.0096
+S -> ADVP VP # 0.0048
+NP' -> VP ADVP # 0.03
+NNP -> Memphis # 0.021
+TOP -> NP # 0.0041
+FRAG -> ADVP NP # 0.0052
+CD -> hundred # 0.0253
+NNS -> hours # 0.0107
+VBZ -> 's # 0.0469
+FRAG -> PP # 0.0628
+NP -> JJ NP' # 0.0063
+NP -> NNP CC # 0.0018
+NP -> JJS NP' # 0.0036
+JJS -> Shortest # 0.0714
+NP -> JJS NN # 0.0072
+FRAG -> WHNP # 0.1623
+WHNP -> NP PP # 0.004
+NP -> WDT NNS # 0.0009
+FRAG -> WHNP PP # 0.0157
+NNP -> Diego # 0.009
+NN -> price # 0.0541
+NNP -> Petersburg # 0.009
+NP -> NN NP' # 0.0063
+NP' -> NNP CD # 0.05
+PRP -> <unk> # 0.0192
+VBG -> departing # 0.0588
+NN -> Price # 0.0193
+NN -> trip # 0.0309
+PP -> NP PP' # 0.0025
+PP' -> IN S # 0.5
+VP -> VBG # 0.0028
+JJ -> First # 0.0455
+JJS -> Cheapest # 0.3929
+NN -> airfare # 0.0232
+NNP -> Tacoma # 0.006
+NNP -> Boston # 0.006
+SQ -> INTJ SQ' # 0.0075
+SQ' -> MD SQ'' # 0.025
+SQ'' -> NP VP # 0.3333
+FRAG -> X PP # 0.0052
+X -> WP IN # 0.2222
+WP -> what # 0.0333
+JJS -> cheapest # 0.1071
+VP -> NN # 0.0028
+NN -> mean # 0.0039
+ADJP -> JJR # 0.1111
+JJR -> better # 0.3333
+NNP -> Ohio # 0.006
+JJ -> Round # 0.0455
+NN -> code # 0.0116
+NP' -> SYM CD # 0.02
+SYM -> slash # 0.4286
+DT -> All # 0.0192
+NNP -> K # 0.006
+NP -> NN NNP # 0.0009
+IN -> With # 0.0138
+NP' -> ADJP NN # 0.01
+ADJP -> RBS JJ # 0.0556
+RBS -> least # 0.25
+FRAG -> ADJP # 0.0105
+NP -> NNPS # 0.0009
+NNPS -> <unk> # 1.0
+VBG -> Departing # 0.1471
+ADJP -> JJS # 0.0556
+RB -> o'clock # 0.0345
+NNS -> weekdays # 0.0071
+NNP -> County # 0.009
+NP' -> PP ADVP # 0.04
+RB -> daily # 0.0862
+FRAG -> NP FRAG' # 0.0052
+FRAG' -> PP ADVP # 1.0
+NNS -> Airports # 0.0071
+NP' -> PP ADJP # 0.01
+ADJP -> JJR PP # 0.1111
+JJR -> less # 0.5
+QP -> CD # 0.1667
+CD -> fifty # 0.0253
+NNS -> dollars # 0.0143
+NNS -> Fares # 0.0107
+QP -> CC JJR # 0.0833
+CC -> <unk> # 0.0333
+QP -> RB QP' # 0.0833
+QP' -> JJR QP'' # 0.1429
+JJR -> <unk> # 0.1667
+QP'' -> IN CD # 1.0
+NP' -> JJS NNS # 0.01
+NP' -> JJS NP'' # 0.01
+NP'' -> JJ NP''' # 0.1429
+NP''' -> NN NNS # 1.0
+NN -> return # 0.0077
+X -> S # 0.1111
+PP -> TO INTJ # 0.0025
+VP' -> NP INTJ # 0.05
+NP' -> DT NP'' # 0.01
+NP'' -> NNP NNS # 0.1429
+VP' -> RB VP # 0.05
+NP' -> NNP NNS # 0.02
+NNS -> restrictions # 0.0071
+VB -> Explain # 0.0227
+NNS -> codes # 0.0071
+NP' -> NN SYM # 0.01
