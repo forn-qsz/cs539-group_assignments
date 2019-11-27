@@ -7,11 +7,17 @@ class helper:
     nonterm = []
     term = []
     tree = []
+<<<<<<< HEAD
 
     def __init__(self):
         ## Read while initializing
         self.read()
 
+=======
+    def __init__(self):
+        ## Read while initializing
+        self.read()
+>>>>>>> 8c574718bee3c5d8a89fc36ef3581c56584872f9
     def read(self):
         for line in sys.stdin:
             self.input_list.append(line.strip().split(' '))
