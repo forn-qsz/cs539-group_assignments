@@ -7,7 +7,9 @@ class helper:
     brackets_map = {')':'('}
     result_dic = None
     result_dic_list = []
+    index = 0
     word_count_dic = defaultdict(int)
+    tag_count_dic = defaultdict(int)
 
     def __init__(self):
         
@@ -35,11 +37,12 @@ class helper:
 
     def list_to_dic(self, list, stack=[], start=True):
         while stack and list or start:
+            self.index += 1
             start = False
             s = list.pop(0)
             ## (TOP
             if s[0] in self.open_brackets:
-                stack.append(s[1:])
+                stack.append((s[1:], self.index))
                 ## Assign tags in stack into result_dic
                 self.assign_result_dic(stack)
                 ## Iterate until found a word
@@ -57,15 +60,26 @@ class helper:
                         stack.pop()
                     break
 
-    def enum_result_dic(self, result_dic, begin=True):
+
+    def count_result_dic(self, result_dic):
         for k, v in result_dic.items():
             if isinstance(v, dict):
+                for k_2 in v.keys():
+                    key = k + ' -> ' + k_2
+                    self.tag_count_dic[key] += 1
+                self.count_result_dic(v)
+
+    def enum_result_dic(self, result_dic, begin=True):
+        for k, v in result_dic.items():
+            ## Nonterminal
+            if isinstance(v, dict):
                 if begin:
-                    print("(" + k, end='')
+                    print("(" + str(k[0]), end='')
                 else:
-                    print(" (" + k, end='')
+                    print(" (" + str(k[0]), end='')
                 self.enum_result_dic(v, False)
                 print(')', end='')
+            ## Terminal
             else:
                 if self.word_count_dic[k] == 1:
                     print(" <unk>", end='')
@@ -74,7 +88,7 @@ class helper:
 
     def binarized_dic(self, k, v):
         bi_dic = defaultdict(dict)
-        k_p = k + '\''
+        k_p = (k[0] + '\'', k[1])
         v_p = v.copy()
         ## The first kv pair
         bi_dic[list(v.keys())[0]] = v_p.pop(list(v.keys())[0])
@@ -100,6 +114,11 @@ class helper:
         for result_dic in self.result_dic_list:
             self.enum_result_dic(result_dic)
             print()
+
+    def output_count(self):
+        for result_dic in self.result_dic_list[:2]:
+            self.count_result_dic(result_dic)
+            print(self.tag_count_dic)
 
 def main():
     h = helper()

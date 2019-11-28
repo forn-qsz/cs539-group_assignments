@@ -9,6 +9,7 @@ class helper:
     brackets_map = {')':'('}
     result_dic = None
     result_dic_list = []
+    index = 0
     word_count_dic = defaultdict(int)
 
     def __init__(self):
@@ -37,11 +38,12 @@ class helper:
 
     def list_to_dic(self, list, stack=[], start=True):
         while stack and list or start:
+            self.index += 1
             start = False
             s = list.pop(0)
             ## (TOP
             if s[0] in self.open_brackets:
-                stack.append(s[1:])
+                stack.append((s[1:], self.index))
                 ## Assign tags in stack into result_dic
                 self.assign_result_dic(stack)
                 ## Iterate until found a word
@@ -67,13 +69,15 @@ class helper:
 
     def enum_result_dic(self, result_dic, begin=True):
         for k, v in result_dic.items():
+            ## Nonterminal
             if isinstance(v, dict):
                 if begin:
-                    print("(" + k, end='')
+                    print("(" + str(k[0]), end='')
                 else:
-                    print(" (" + k, end='')
+                    print(" (" + str(k[0]), end='')
                 self.enum_result_dic(v, False)
                 print(')', end='')
+            ## Terminal
             else:
                 if self.word_count_dic[k] == 1:
                     print(" <unk>", end='')
@@ -87,17 +91,6 @@ class helper:
         for k, v in self.word_count_dic.items():
             if v > 1:
                 logs.write(k + '\n')
-
-'''
-class Tree(object):
-
-    def __init__(self, lines):
-
-        self.lines = lines
-
-    def word_counts(self):
-        pass
-'''
         
 
 def main():
