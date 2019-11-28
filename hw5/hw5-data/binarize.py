@@ -60,7 +60,6 @@ class helper:
                         stack.pop()
                     break
 
-
     def count_result_dic(self, result_dic):
         for k, v in result_dic.items():
             if isinstance(v, dict):
@@ -88,7 +87,10 @@ class helper:
 
     def binarized_dic(self, k, v):
         bi_dic = defaultdict(dict)
-        k_p = (k[0] + '\'', k[1])
+        if k[0][-1] != '\'':
+            k_p = (k[0] + '\'', k[1])
+        else:
+            k_p = (k[0], k[1])
         v_p = v.copy()
         ## The first kv pair
         bi_dic[list(v.keys())[0]] = v_p.pop(list(v.keys())[0])

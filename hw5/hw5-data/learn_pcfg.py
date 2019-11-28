@@ -7,6 +7,7 @@ class helper:
     brackets_map = {')':'('}
     result_dic = None
     result_dic_list = []
+    index = 0
     word_count_dic = defaultdict(int)
     tag_count_dic = defaultdict(float)
     px_count_dic = defaultdict(float)
@@ -38,11 +39,12 @@ class helper:
 
     def list_to_dic(self, list, stack=[], start=True):
         while stack and list or start:
+            self.index += 1
             start = False
             s = list.pop(0)
             ## (TOP
             if s[0] in self.open_brackets:
-                stack.append(s[1:])
+                stack.append((s[1:], self.index))
                 ## Assign tags in stack into result_dic
                 self.assign_result_dic(stack)
                 ## Iterate until found a word
@@ -59,12 +61,23 @@ class helper:
                         s = s.replace(')', '', 1)
                         stack.pop()
                     break
+                    ## Assign word to the current tag
+                    self.assign_result_dic(stack, s.replace(')', '').replace('\n', ''))
+                    ## Pop used tags
+                    while s[-1] == ')':
+                        s = s.replace(')', '', 1)
+                        stack.pop()
+                    break
 
     def count_result_dic(self, result_dic):
         for k, v in result_dic.items():
             if isinstance(v, dict):
-                key = ' '.join(k_2 for k_2 in v.keys())
-                key = (k, key)
+                for k_2 in v.keys():
+                    if isinstance(k_2, tuple):
+                        key = ' '.join(k_2[0] for k_2 in v.keys())
+                    else:
+                        key = ' '.join(k_2 for k_2 in v.keys())
+                    key = (k[0], key)
                 self.tag_count_dic[key] += 1
                 self.count_result_dic(v)
 
@@ -93,7 +106,8 @@ class helper:
                 self.rules[0] += 1
             else:
                 self.rules[1] += 1
-        #print('binary rules : ' + str(self.rules[0]) +  ' unary rules : ' + str(self.rules[1]) + ' lexical rules : ' + str(self.rules[2]))
+        print('binary rules : ' + str(self.rules[0]) +  ' unary rules : ' + str(self.rules[1]) + ' lexical rules : ' + str(self.rules[2]))
+
 def main():
     h = helper()
     h.output()
