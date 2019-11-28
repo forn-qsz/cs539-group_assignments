@@ -9,6 +9,7 @@ class helper:
     tree = []
     replace = [] #replace for unknown
     option = False #train_dict
+    none_count = 0
 
     def __init__(self):
         ## Read while initializing
@@ -31,11 +32,12 @@ class helper:
 
         #optional train_dict
         if len(sys.argv) == 3:
-            option = True
+            self.option = True
             with open(sys.argv[2]) as f:
                 for line in f:
                     self.term.append(line.strip())
-
+        #if('night' not in self.term):
+            #print("fdss")
     def backtrack(self, back, x, y, v):
         l = back[x][y][v]
         bi = False
@@ -72,6 +74,7 @@ class helper:
             for A in self.nonterm:
                 if(self.option == True and text[i] not in self.term):
                     self.replace.append(text[i])
+                    #print('fuck')
                     text[i] = '<unk>'
                 if(text[i] in self.pcfg_dic[A]):
                     score[i][i+1][A] = self.pcfg_dic[A][text[i]]
@@ -121,9 +124,9 @@ class helper:
         #print(score[0][n])
 
         #print tree
-        #failure
-        if(score[0][n]['TOP'] == 0):
+        if(score[0][n]['TOP'] == 0):#deal with failure
             print("NONE")
+            self.none_count += 1
         else:
             self.tree.append('(TOP')
             self.backtrack(back, 0, n, 'TOP')
@@ -135,7 +138,8 @@ def main():
     h = helper()
     for senten in h.input_list:
         h.cyk_alg(senten)
-    #h.cyk_alg(h.input_list[2])
+    print("NONE COUNT : " + str(h.none_count))
+    #h.cyk_alg(h.input_list[25])
 
 if __name__ == "__main__":
     main()
