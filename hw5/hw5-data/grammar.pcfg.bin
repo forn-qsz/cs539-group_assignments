@@ -597,4 +597,3 @@ NNS -> restrictions # 0.0069
 VB -> Explain # 0.0222
 NNS -> codes # 0.0069
 NP' -> NN SYM # 0.0022
-binary rules : 226 unary rules : 43 lexical rules : 330

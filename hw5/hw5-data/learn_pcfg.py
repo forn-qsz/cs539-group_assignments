@@ -106,7 +106,7 @@ class helper:
                 self.rules[0] += 1
             else:
                 self.rules[1] += 1
-        print('binary rules : ' + str(self.rules[0]) +  ' unary rules : ' + str(self.rules[1]) + ' lexical rules : ' + str(self.rules[2]))
+        #print('binary rules : ' + str(self.rules[0]) +  ' unary rules : ' + str(self.rules[1]) + ' lexical rules : ' + str(self.rules[2]))
 
 def main():
     h = helper()
