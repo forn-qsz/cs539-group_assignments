@@ -1,3 +1,4 @@
+TOP
 TOP -> S # 1.0
 S -> NP VP # 0.6667
 NP -> DT NN # 0.5

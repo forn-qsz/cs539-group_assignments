@@ -7,6 +7,7 @@ class helper:
     nonterm = [] #nonterminal
     term = [] #terminal
     tree = []
+    start_st = ''
     replace = [] #replace for unknown
     option = False #train_dict
     none_count = 0
@@ -19,6 +20,7 @@ class helper:
         for line in sys.stdin:
             self.input_list.append(line.strip().split(' '))
         with open(sys.argv[1]) as f:
+            self.start_st = f.readline().strip()
             for line in f:
                 l = line.split('->')
                 X = l[0].strip()
@@ -68,13 +70,13 @@ class helper:
         var = defaultdict(lambda: defaultdict(list))
         text = text
         self.tree = []
+        self.replace = []
         #node
         n = len(text)
         for i in range(n):
             for A in self.nonterm:
                 if(self.option == True and text[i] not in self.term):
                     self.replace.append(text[i])
-                    #print('fuck')
                     text[i] = '<unk>'
                 if(text[i] in self.pcfg_dic[A]):
                     score[i][i+1][A] = self.pcfg_dic[A][text[i]]
@@ -124,12 +126,12 @@ class helper:
         #print(score[0][n])
 
         #print tree
-        if(score[0][n]['TOP'] == 0):#deal with failure
+        if(score[0][n][self.start_st] == 0):#deal with failure
             print("NONE")
             self.none_count += 1
         else:
-            self.tree.append('(TOP')
-            self.backtrack(back, 0, n, 'TOP')
+            self.tree.append('(' + self.start_st)
+            self.backtrack(back, 0, n, self.start_st)
             print(''.join(self.tree))
 
 
@@ -138,8 +140,8 @@ def main():
     h = helper()
     for senten in h.input_list:
         h.cyk_alg(senten)
-    print("NONE COUNT : " + str(h.none_count))
-    #h.cyk_alg(h.input_list[25])
+    #print("NONE COUNT : " + str(h.none_count))
+    #h.cyk_alg(h.input_list[0])
 
 if __name__ == "__main__":
     main()

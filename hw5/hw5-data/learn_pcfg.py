@@ -98,6 +98,7 @@ class helper:
             #print(k , self.px_count_dic[k])
         for k in self.tag_count_dic:
             self.tag_count_dic[k] /= self.px_count_dic[k[0]]
+        print('TOP')
         for k in self.tag_count_dic:
             print(k[0] + ' -> ' + k[1] + ' # ' + str(round(self.tag_count_dic[k], 4)) )
             if(k[1] in self.word_count_dic):
