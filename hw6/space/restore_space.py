@@ -3,14 +3,19 @@ sys.path.insert(1, '../')
 from nlm import NLM
 from math import log
 
-if __name__ == "__main__":
-    NLM.load("base")
+path = './test.txt.nospaces'
 
-    for line in open(sys.argv[1]):
-        h = NLM()
+if __name__ == "__main__":
+    NLM.load("huge")
+
+    f = open(path,'r')
+
+    h = NLM()
+
+    for line in f.readlines():
         beam = [(0, h)]
         b = 20
-        for c in list(x) + ["</s>"]:
+        for c in list(line[:-1]) + ["</s>"]:
             newbeam = []
             for score, state in beam:
                 newscore = score + log(state.next_prob(c))
@@ -24,5 +29,4 @@ if __name__ == "__main__":
             beam = sorted(newbeam, reverse = True)[:b]
 
         score, state = beam[0]
-        #print("".join(state.history[1:-1]).replace("_", " "))
-        print(" ".join(state.history))
+        print(" ".join(state.history).replace('<s>', '').replace('</s>', '').replace(' ', '').replace('_', ' '))
