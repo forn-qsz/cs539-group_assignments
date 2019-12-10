@@ -96,7 +96,8 @@ class EM:
                     else:
                         score = 0
                     self.forward_dic[str(i+1)][str(int(j)+k)] += score
-        return self.forward_dic[str(n)][str(m)]
+        self.p_x = self.forward_dic[str(n)][str(m)]
+        #return self.forward_dic[str(n)][str(m)]
 
     def backward(self):
         n, m = len(self.eprons), len(self.jprons)
@@ -115,10 +116,9 @@ class EM:
                         score = 0
                     self.backward_dic[str(i-1)][str(int(j)-k)] += score
 
-
     def dp(self, f_counts):
-        self.p_x = self.forward()
-        self.backward()
+        #self.p_x = self.forward()
+        #self.backward()
 
         n = len(self.eprons)
         m = len(self.jprons)
@@ -135,30 +135,35 @@ class EM:
                         forward_u = self.forward_dic[str(i)][j]
                         backward_v = self.backward_dic[str(i+2)][str(int(j)+k+1)]
                         p_u_v = self.table[self.eprons[i]][jseg]
-                        #print(self.eprons[i], jseg, forward_u, backward_v)
                         f_counts[self.eprons[i]][jseg] += forward_u * backward_v * p_u_v / self.p_x
-        return f_counts
-
+        self.table = f_counts
 
 def main():
     h = Helper()
     h.read()
     #data1
     h.uni_ek()
+    em_list = []
     iterative = 0
-    #corpus_prob = 1
-    #em
+
+    for i in range(len(h.eprons_list)):
+        em_list.append(EM(h.eprons_list[i], h.jprons_list[i], h.ek_pair))
+        em_list[i].forward()
+        em_list[i].backward()
+
     while(iterative < h.iter):
         corpus_prob = math.log(1)
         #E-step
         h.ini_frac_counts()
-        for i in range(len(h.eprons_list)):
-            em = EM(h.eprons_list[i], h.jprons_list[i], h.ek_pair)
-            h.frac_counts = em.dp(h.frac_counts)
-            corpus_prob += math.log(em.p_x)
+        for i in range(len(em_list)):
+            #em_list[i].forward()
+            #em_list[i].backward()
+            em_list[i].dp(h.frac_counts)
+            #print(h.frac_counts)
+            #m.dp(h.frac_counts)
+            corpus_prob += math.log(em_list[i].p_x)
         #M_step
-        h.ek_pair = copy.deepcopy(h.frac_counts)
-        print(h.ek_pair)
+        h.ek_pair = h.frac_counts.copy()#copy.deepcopy(h.frac_counts)
         h.normalize()
         #print table
         non_zeros = 0

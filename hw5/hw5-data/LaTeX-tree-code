@@ -1,0 +1,14 @@
+\documentclass[10pt]{article}
+\usepackage[usenames]{color} %used for font color
+\usepackage{amssymb} %maths
+\usepackage{amsmath} %maths
+\usepackage[utf8]{inputenc} %useful to type directly diacritic characters
+\usepackage{forest, adjustbox}
+\begin{document}
+\begin{forest}
+[TOP [S [NP [PRP I]] [VP [VBP need] [NP [NP [DT a] [NN flight]] [NP' [PP [TO to] [NP [NNP Seattle]]] [VP [VBG <unk>] [NP [NP [DT a] [NN stop]] [PP [IN in] [NP [NNP Minneapolis]]]]]]]]]]
+\end{forest}
+\begin{forest}
+[TOP [S [NP [PRP I]] [VP [VBP need] [NP [NP [DT a] [NN flight]] [PP [TO to] [NP [NNP Seattle]]] [VP [VBG <unk>] [NP [NP [DT a] [NN stop]] [PP [IN in] [NP [NNP Minneapolis]]]]]]]]]
+\end{forest}
+\end{document}
