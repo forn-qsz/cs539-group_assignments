@@ -1,6 +1,6 @@
 # cs539 - Group Assignments
 
-## Report links
+## Reports
 
 - [hw1](https://docs.google.com/document/d/1A4nFPurA_lPMnbLZ2l2DV_23vO9hpldx1Q4YgryEIvs/edit?usp=sharing)
 - [hw2](https://docs.google.com/document/d/1h-IrcULXpCkthZr03jkaAU3cFCdQboTS1j3aiTtjIwE/edit?usp=sharing)
